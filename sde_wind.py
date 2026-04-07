@@ -8,11 +8,19 @@ from torch.optim import Adam
 
 from models.sde_no_embed import SampledInitialCondition
 from models.sde_wind import Generator, DiscriminatorSimple
-from training import WGANGPTrainer
+from training import WGANGPTrainer # Implementa entrenamiento tipo WGAN-GP, mas estable que GAN convencional
 from dataloaders import get_sde_dataloader
 from utils.plotting import SDETrainingPlotter
 from utils import get_accelerator_device
 
+# Aquí está lo importante:
+
+# Generator: genera trayectorias (series temporales)
+# DiscriminatorSimple: evalúa si la serie es real o fake
+# SampledInitialCondition: inicializa el estado del SDE desde datos reales (clave en SDE-GAN)
+# get_sde_dataloader: prepara series temporales
+# SDETrainingPlotter: visualización del entrenamiento
+# get_accelerator_device: usa GPU si existe
 
 def train_sdegan(params_file: str = "",
                  warm_start: bool = False,
